@@ -1,6 +1,6 @@
 #include "gitgut.hpp"
 #include <iostream>
-#include <filesystem>
+#include <fstream>
 
 void handleCommandLineArgs(int argc, char* argv[])
 {
@@ -47,4 +47,62 @@ void Gitgut::init()
     std::filesystem::create_directories("./.git/refs/heads");
     std::filesystem::create_directories("./.git/refs/tags");
     std::filesystem::create_directories("./.git/branches");
+
+    initFiles();
+}
+
+void Gitgut::initFiles()
+{
+    initDescription();
+    initHead();
+    initConfig();
+}
+
+void Gitgut::initDescription()
+{
+    const std::string filename = "description";
+    std::filesystem::path path = rootPath;
+    path /= filename;
+    std::ofstream s(path);
+    if (!s.is_open()) {
+    std::cout << "failed to open " << filename << '\n';
+    }
+    else {
+        s << "Unnamed repository; edit this file 'description' to name the repository.\n";
+        s.close();
+    }
+}
+
+void Gitgut::initHead()
+{
+    const std::string filename = "HEAD";
+    std::filesystem::path path = rootPath;
+    path /= filename;
+    std::ofstream s(path);
+    if (!s.is_open()) {
+    std::cout << "failed to open " << filename << '\n';
+    }
+    else {
+        s << "ref: refs/heads/master\n";
+        s.close();
+    }
+}
+
+void Gitgut::initConfig()
+{
+    const std::string filename = "config";
+    std::filesystem::path path = rootPath;
+    path /= filename;
+    std::ofstream s(path);
+    if (!s.is_open()) {
+    std::cout << "failed to open " << filename << '\n';
+    }
+    else {
+        s << "[core]\n";
+        s << "\trepositoryformatversion = 0\n";
+        s << "\tfilemode = true\n";
+        s << "\tbare = false\n";
+        s << "\tlogallrefupdates = true\n";
+        s.close();
+    }
 }
