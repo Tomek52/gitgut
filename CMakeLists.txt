@@ -44,6 +44,7 @@ project(gitgut)
 
 set(SRC_LIST
     src/gitgut.cpp
+    src/common.cpp
 )
 
 include_directories(src)
@@ -59,7 +60,8 @@ endif (UNIX)
 
 set(TEST_SRC_LIST
     tests/main.cpp
-    tests/gitgutTest.cpp
+    tests/gitgutTests.cpp
+    tests/commonTests.cpp
 )
 
 link_libraries(gmock)

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <sstream>
-#include "gitgut.hpp"
+#include "common.hpp"
 
 int main(int argc, char* argv[])
 {
